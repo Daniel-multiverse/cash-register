@@ -12,7 +12,8 @@ cashRegister(19.5, 20, [
 ]);
 
 function cashRegister(cash, price, CID){
-const change = cash - price
+let changeDue = cash - price
+let changeGiven = 0
 let result = {status: "",
               change: [["PENNY", 0],
               ["NICKEL", 0],
@@ -36,11 +37,20 @@ if (cash < price){
 let 
 
 for (let i = CID.length - 1; i >= 0; i--){
-  
+  if(CID[i][1]>changeDue){
+    continue;
+  }else{
+    changeGiven += changeDue - CID[i][1]
+    CID[i][1] -= CID[i][1]
+
+    if(changeDue === 0){
+      break;
+    }
+
+    }
+  }
 }
 
-
-}
 
 
 
