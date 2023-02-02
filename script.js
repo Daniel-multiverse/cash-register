@@ -31,8 +31,12 @@ if (cash < price){
 } else if (cash === price) {
   result.status = "CLOSED"
   return result
-} else {
+}
 
+let 
+
+for (let i = CID.length - 1; i >= 0; i--){
+  
 }
 
 
