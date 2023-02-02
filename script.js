@@ -11,16 +11,15 @@ cashRegister(19.5, 20, [
   ["ONE HUNDRED", 100],
 ]);
 
-function cashRegister(cash, price){
-let status = {status: "",
+function cashRegister(cash, price, CID){
+let result = {status: "",
               change: []}
 
 if (cash < price){
-status.cash = "insuffcient funds"
-status.change = []
-
-return status
+result.status = "Incorrect payment"
+return result
 }
+
 
 
 
