@@ -13,14 +13,26 @@ cashRegister(19.5, 20, [
 
 function cashRegister(cash, price, CID){
 let result = {status: "",
-              change: []}
+              change: [["PENNY", 0],
+              ["NICKEL", 0],
+              ["DIME", 0],
+              ["QUARTER", 0],
+              ["ONE", 0],
+              ["FIVE", 0],
+              ["TEN", 0],
+              ["TWENTY", 0],
+              ["ONE HUNDRED", 0]]
+            }
 
 if (cash < price){
-result.status = "Incorrect payment"
-return result
+  result.status = "INCORRECT_PAYMENT"
+  return result
+} else if (cash === price) {
+  result.status = "CLOSED"
+  return result
+} else {
+
 }
-
-
 
 
 }
