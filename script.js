@@ -12,6 +12,7 @@ cashRegister(19.5, 20, [
 ]);
 
 function cashRegister(cash, price, CID){
+const change = cash - price
 let result = {status: "",
               change: [["PENNY", 0],
               ["NICKEL", 0],
