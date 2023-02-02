@@ -11,5 +11,21 @@ cashRegister(19.5, 20, [
   ["ONE HUNDRED", 100],
 ]);
 
+function cashRegister(cash, price){
+let status = {status: "",
+              change: []}
+
+if (cash < price){
+status.cash = "insuffcient funds"
+status.change = []
+
+return status
+}
+
+
+
+}
+
+
 
 // Mustafa Pushed this ;)
