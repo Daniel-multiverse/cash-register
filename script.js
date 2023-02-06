@@ -1,6 +1,13 @@
 function cashRegister(price, cash, CID){
-  let changeDue = Math.round((cash - price) * 100)
-  let changeGiven = 0
+
+  //initial variables declared below
+
+  let changeDue = Math.round((cash - price) * 100)    // change due multiplied by 100 to avoid decimal issues
+  const totalChangeDue = changeDue    //reference value for the total change due
+  let changeGiven = 0   //tracks sum of change due to be given
+
+  //object below containing values to be updated further down the code
+
   let result = {status: "",
                 change: [["PENNY", 0],
                 ["NICKEL", 0],
@@ -20,8 +27,11 @@ function cashRegister(price, cash, CID){
     totalCID += Math.round((CID[i][1]) * 100)
   }
 
+  // if the cash is less than the price then the result status becomes 'INCORRECT_PAYMENT and 
+  // the result change is returned empty
   if (cash < price){
     return {status: "INCORRECT_PAYMENT", change: []}
+    //if cash is equal to price, the result status is changed to CLOSED
   } else if (cash === price) {
     result.status = "CLOSED"
     return result
@@ -45,19 +55,21 @@ function cashRegister(price, cash, CID){
 
     CID[i][1] = Math.round(CID[i][1] * 100);      //multiplies all values in drawer by 100 to avoid decimal place issues
 
-    //while loop below repeatedly adds currency values to 
+    //While loop below adds currency values to it's corresponding change per cycle
+    //Increases variable "changeGiven" and decreases variable "changeDue" by currency amount per cycle 
+    //Loop breaks when the selected currency value in the drawer is empty or no more of it is needed to add to change
 
     while (CID[i][1] >= moneyCompare[i] && changeDue >= moneyCompare[i]) {
       result.change[i][1] += (moneyCompare[i] / 100);
       changeDue -= moneyCompare[i];
-      changeGiven += moneyCompare[i]
+      changeGiven += moneyCompare[i]  // adds currency value to "changeGiven" every cycle
       CID[i][1] -= moneyCompare[i];
     }
   }
 
+  //conditional statement below checks if the totalChange has been collected
 
-
-  if(changeDue>changeGiven){
+  if(totalChangeDue>changeGiven){
     return {status: "INSUFFICIENT_FUNDS", change: []}
   }
   
@@ -68,16 +80,9 @@ function cashRegister(price, cash, CID){
   }
 
   return result
-  }
-
+}
   
 
-
-
-  
-  
-  // we are trying update the CID depending on the change due 
-  
   // Example function call
   console.log(cashRegister(10, 15.1, [
     ["PENNY", 1.01],
@@ -90,7 +95,3 @@ function cashRegister(price, cash, CID){
     ["TWENTY", 60],
     ["ONE HUNDRED", 100],
   ]));
-  
-  // Mustafa Pushed this ;)
-
-//test
