@@ -67,3 +67,4 @@ function cashRegister(cash, price, CID){
   
   // Mustafa Pushed this ;)
 
+//test
