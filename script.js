@@ -1,7 +1,7 @@
 
 
 function cashRegister(cash, price, CID){
-  let changeDue = cash - price
+  let changeDue = (cash - price) * 100
   let changeGiven = 0
   let result = {status: "",
                 change: [["PENNY", 0],
@@ -14,14 +14,23 @@ function cashRegister(cash, price, CID){
                 ["TWENTY", 0],
                 ["ONE HUNDRED", 0]]
               }
+  
+
+  
+  let totalCID = 0
+  for (let i = 0; i < CID.length - 1; i++) {
+    totalCID += (CID[i][1]) * 100
+  }
 
   if (cash < price){
-    result.status = "INCORRECT_PAYMENT"
-    return result
+    return {status: "INCORRECT_PAYMENT", change: []}
   } else if (cash === price) {
     result.status = "CLOSED"
     return result
+  } else if (changeDue > totalCID) {
+    return {status: "INSUFFICIENT_FUNDS", change: []}
   }
+
   let moneyCompare = [1, 5, 10, 25, 100, 500, 1000, 2000, 10000]
 
   for (let i = CID.length - 1; i >= 0; i--) {
@@ -34,17 +43,18 @@ function cashRegister(cash, price, CID){
     }
   }
 
-
-
-  console.log(result,CID)
+  result.status = "OPEN"
+  return result
 
   }
+
+  
   
   // we are trying update the CID depending on the change due 
   
   
   // Example function call
-  cashRegister(120, 20, [
+  console.log(cashRegister(100, 20, [
     ["PENNY", 1.01],
     ["NICKEL", 2.05],
     ["DIME", 3.1],
@@ -54,7 +64,7 @@ function cashRegister(cash, price, CID){
     ["TEN", 20],
     ["TWENTY", 60],
     ["ONE HUNDRED", 100],
-  ]);
+  ]));
   
   // Mustafa Pushed this ;)
 
