@@ -1,7 +1,5 @@
-
-
 function cashRegister(price, cash, CID){
-  let changeDue = (cash - price) * 100
+  let changeDue = Math.round((cash - price) * 100)
   let changeGiven = 0
   let result = {status: "",
                 change: [["PENNY", 0],
@@ -19,34 +17,22 @@ function cashRegister(price, cash, CID){
   
   let totalCID = 0
   for (let i = 0; i < CID.length; i++) {
-    totalCID += (CID[i][1]) * 100
+    totalCID += Math.round((CID[i][1]) * 100)
   }
 
   if (cash < price){
     return {status: "INCORRECT_PAYMENT", change: []}
+  } else if (cash === price) {
+    result.status = "CLOSED"
+    return result
   }else if(totalCID<changeDue){
     return {status: "INSUFFICIENT_FUNDS", change: []}
   }else if(totalCID === changeDue){
-    return {status: "CLOSED", change: []} //make sure it return the change
+    return {status: "CLOSED", change: CID} //make sure it return the change
   }else{
     result.status = 'OPEN'
     // Updates the result status to open
   }  
-
-  //remove below
-
-  // if (cash < price){
-  //   return {status: "INCORRECT_PAYMENT", change: []}
-  // } else if (cash === price) {
-  //   result.status = "CLOSED"
-  //   return result
-  // } else if (changeDue === totalCID) {
-  //   return {status: "CLOSED", change: CID}
-  // } else if (changeDue > totalCID) {
-  //   return {status: "INSUFFICIENT_FUNDS", change: []}
-  // } else {
-  //   result.status = "OPEN"
-  // }
   
   //array below contains currency values multiplied by 100
 
@@ -69,7 +55,7 @@ function cashRegister(price, cash, CID){
     }
   }
 
-  
+
 
   if(changeDue>changeGiven){
     return {status: "INSUFFICIENT_FUNDS", change: []}
@@ -80,12 +66,6 @@ function cashRegister(price, cash, CID){
   for (let i = result.change.length - 1; i >= 0; i--) {
     if (result.change[i][1] === 0) {result.change.splice(i, 1)}
   }
-  
-  //remove below
-
-  // for (let i = 0; i < result.change.length - 1; i++) {
-  //     if (result.change[i][1] === 0) {result.change.splice(i, 1)}
-  //   }
 
   return result
   }
