@@ -52,7 +52,6 @@ function cashRegister(cash, price, CID){
   
   // we are trying update the CID depending on the change due 
   
-  
   // Example function call
   console.log(cashRegister(100, 20, [
     ["PENNY", 1.01],
